@@ -1,105 +1,98 @@
-/* Hero Section */
+
+.landingpageContainer {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ensures no horizontal scroll */
+  width: 100%;
+}
+
+/* Hero Section - full height */
 .hero {
   position: relative;
+  width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden; /* hide any overflow from slides */
 }
 
 /* Carousel Track */
 .carouselTrack {
   display: flex;
-  height: 100%;
   width: 100%;
-  transition: transform 1s ease-in-out;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Each Slide */
 .carouselSlide {
-  flex: 0 0 100vw;
-  height: 100vh;
-  background-size: cover;       /* fills entire slide without black gaps */
+  width: 100%; /* not min-width */
+  height: 100%;
+  background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
-/* Overlay for text readability */
+/* Dark Overlay */
 .carouselOverlay {
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
 }
 
-/* Hero Content: tagline + button */
-.heroContent {
+/* Tagline */
+.heroTagline {
   position: absolute;
-  top: 50px; /* Distance from top */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
+  top: 20px;
+  width: 100%;
   text-align: center;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.heroContent h1 {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.heroContent p {
-  font-size: 1.2rem;
-  margin: 0;
+  z-index: 2;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
 }
 
 /* Explore Button */
-.btnExplore {
-  background-color: #ff6600;
-  color: #fff;
+.exploreBtn {
+  display: block;
+  margin: 15px auto 0 auto;
+  padding: 10px 25px;
+  border-radius: 25px;
   border: none;
-  border-radius: 4px;
-  padding: 6px 14px;
-  font-size: 1rem;
+  background-color: #3B82F6;
+  color: #fff;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
   transition: background 0.3s ease;
-  width: fit-content;   /* keeps button width equal to text */
-  margin: 0 auto;       /* centers the button */
-  white-space: nowrap;  /* prevents wrapping */
 }
 
-.btnExplore:hover {
-  background-color: #e65500;
+.exploreBtn:hover {
+  background-color: #2563EB;
 }
 
-/* Responsive Styling */
-@media (max-width: 768px) {
-  .heroContent h1 {
-    font-size: 2rem;
-  }
-
-  .heroContent p {
-    font-size: 1rem;
-  }
-
-  .btnExplore {
-    font-size: 0.9rem;
-    padding: 5px 12px;
-  }
+/* Pagination Dots */
+.paginationDots {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 2;
 }
 
-@media (max-width: 480px) {
-  .heroContent h1 {
-    font-size: 1.6rem;
-  }
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .heroContent p {
-    font-size: 0.9rem;
-  }
-
-  .btnExplore {
-    font-size: 0.8rem;
-    padding: 4px 10px;
-  }
+.activeDot {
+  background-color: #3B82F6;
 }
