@@ -1,4 +1,3 @@
-
 .landingpageContainer {
   margin: 0;
   padding: 0;
@@ -42,11 +41,12 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* Tagline */
+/* Tagline + Button wrapper */
 .heroTagline {
   position: absolute;
-  top: 20px;
-  width: 100%;
+  top: 35%; /* balanced: not too central, not too top */
+  left: 50%;
+  transform: translate(-50%, -35%);
   text-align: center;
   color: #fff;
   z-index: 2;
@@ -54,11 +54,20 @@
   font-weight: bold;
 }
 
+.heroTagline h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.heroTagline p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
 /* Explore Button */
 .exploreBtn {
-  display: block;
-  margin: 15px auto 0 auto;
-  padding: 10px 25px;
+  display: inline-block;
+  padding: 12px 28px;
   border-radius: 25px;
   border: none;
   background-color: #3B82F6;
