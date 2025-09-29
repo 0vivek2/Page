@@ -12,25 +12,28 @@ export default function LandingPage() {
   const [images, setImages] = useState<PexelsPhoto[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [authMode, setAuthMode] = useState<"signin" | "signup" | "forgot">("signin");
+  const [usePhone, setUsePhone] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
+
   const trackRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<number | null>(null);
 
-  // Fetch hero images (limit 4 only)
+  // Fetch images
   useEffect(() => {
     async function fetchImages() {
       try {
         const categories = ["mountain", "beach", "temple", "island"];
         let allImages: PexelsPhoto[] = [];
-
         for (const category of categories) {
           const res = await fetch(`/api/pexels-wallpapers?category=${category}`);
           const data = await res.json();
           if (data.photos && data.photos.length > 0) {
-            allImages = allImages.concat(data.photos.slice(0, 1)); // take 1 per category
+            allImages = allImages.concat(data.photos.slice(0, 1));
           }
         }
-
-        setImages(allImages.slice(0, 4)); // ensure max 4
+        setImages(allImages.slice(0, 4));
       } catch (err) {
         console.error("Error fetching hero images:", err);
       }
@@ -38,7 +41,7 @@ export default function LandingPage() {
     fetchImages();
   }, []);
 
-  // Hero carousel auto-slide
+  // Auto-slide
   useEffect(() => {
     if (images.length === 0) return;
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -53,7 +56,7 @@ export default function LandingPage() {
     };
   }, [images]);
 
-  // Infinite loop adjustment
+  // Infinite loop
   useEffect(() => {
     if (!trackRef.current) return;
     const totalSlides = images.length;
@@ -72,7 +75,6 @@ export default function LandingPage() {
     }
   }, [isTransitioning]);
 
-  // If no images from API, use fallback
   const heroSlides =
     images.length > 0
       ? [...images, images[0]]
@@ -86,6 +88,20 @@ export default function LandingPage() {
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
     setIsTransitioning(true);
+  };
+
+  // === Auth Handlers ===
+  const handleSendOtp = () => {
+    setOtpSent(true);
+    alert("OTP sent! (Demo only)");
+  };
+
+  const handleVerifyOtp = () => {
+    if (otp === "1234") {
+      alert("OTP Verified ✅ (Demo)");
+    } else {
+      alert("Invalid OTP ❌ (try 1234)");
+    }
   };
 
   return (
@@ -116,7 +132,109 @@ export default function LandingPage() {
           <button className={styles.exploreBtn}>Explore With Travio</button>
         </div>
 
-        {/* Pagination Dots */}
+        {/* ===== AUTH CARD ===== */}
+        <div className={styles.authCard}>
+          {authMode === "signin" && (
+            <>
+              <h2>Sign In</h2>
+
+              {!usePhone ? (
+                <input type="email" placeholder="Email" className={styles.inputBox} />
+              ) : (
+                <div className={styles.phoneInputWrapper}>
+                  <select className={styles.countryCodeSelect}>
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                  </select>
+                  <input type="tel" placeholder="Phone number" className={styles.inputBox} />
+                </div>
+              )}
+
+              <input type="password" placeholder="Password" className={styles.inputBox} />
+
+              {/* OTP flow */}
+              {usePhone && (
+                <>
+                  {!otpSent ? (
+                    <button className={styles.primaryBtn} onClick={handleSendOtp}>
+                      Send OTP
+                    </button>
+                  ) : (
+                    <>
+                      <input
+                        type="text"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        placeholder="Enter OTP"
+                        className={styles.inputBox}
+                      />
+                      <button className={styles.primaryBtn} onClick={handleVerifyOtp}>
+                        Verify OTP
+                      </button>
+                    </>
+                  )}
+                </>
+              )}
+
+              {!usePhone && (
+                <button className={styles.primaryBtn}>Sign In</button>
+              )}
+
+              <p className={styles.linkText}>
+                <span onClick={() => setUsePhone(!usePhone)}>
+                  {usePhone ? "Use Email Instead" : "Use Phone Number Instead"}
+                </span>
+              </p>
+
+              <p className={styles.linkText} onClick={() => setAuthMode("forgot")}>
+                Forgot Password?
+              </p>
+
+              <p className={styles.switchText}>
+                Don't have an account?
+                <span onClick={() => setAuthMode("signup")}> Sign Up</span>
+              </p>
+            </>
+          )}
+
+          {authMode === "signup" && (
+            <>
+              <h2>Create Account</h2>
+              <input type="text" placeholder="Full Name" className={styles.inputBox} />
+              <input type="email" placeholder="Email" className={styles.inputBox} />
+              <input type="password" placeholder="Password" className={styles.inputBox} />
+              <button className={styles.primaryBtn}>Sign Up</button>
+              <p className={styles.switchText}>
+                Already have an account?
+                <span onClick={() => setAuthMode("signin")}> Sign In</span>
+              </p>
+            </>
+          )}
+
+          {authMode === "forgot" && (
+            <>
+              <h2>Reset Password</h2>
+              <input
+                type="text"
+                placeholder="Enter email or phone"
+                className={styles.inputBox}
+              />
+              <button
+                className={styles.primaryBtn}
+                onClick={() => alert("Reset link/OTP sent (Demo)")}
+              >
+                Send Reset Link
+              </button>
+              <p className={styles.switchText}>
+                Back to
+                <span onClick={() => setAuthMode("signin")}> Sign In</span>
+              </p>
+            </>
+          )}
+        </div>
+
+        {/* Pagination */}
         <div className={styles.paginationDots}>
           {images.map((_, index) => (
             <div

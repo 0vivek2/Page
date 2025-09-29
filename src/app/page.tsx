@@ -1,7 +1,7 @@
 "use client";
 
-import LandingPage from "./landingpage";
-import styles from "./page.module.css";
+import LandingPage from "./landingpage/landingpage";
+import styles from "./landingpage/page.module.css";
 
 export default function Page() {
   return (

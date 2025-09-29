@@ -1,30 +1,30 @@
+/* Container */
 .landingpageContainer {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* ensures no horizontal scroll */
-  width: 100%;
+  overflow-x: hidden; /* remove horizontal scroll */
+  width: 100vw;
+  height: 100vh;
 }
 
-/* Hero Section - full height */
+/* Hero Section */
 .hero {
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  overflow: hidden; /* hide any overflow from slides */
+  overflow: hidden;
 }
 
 /* Carousel Track */
 .carouselTrack {
   display: flex;
-  width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Each Slide */
 .carouselSlide {
-  width: 100%; /* not min-width */
+  width: 100vw;
   height: 100%;
   background-size: cover;
   background-position: center;
@@ -34,39 +34,33 @@
 /* Dark Overlay */
 .carouselOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* Tagline + Button wrapper */
+/* Tagline */
 .heroTagline {
   position: absolute;
-  top: 35%; /* balanced: not too central, not too top */
-  left: 50%;
-  transform: translate(-50%, -35%);
-  text-align: center;
+  top: 1%;
+  left: 5%;
+  max-width: 40%;
   color: #fff;
   z-index: 2;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
-  font-weight: bold;
 }
 
 .heroTagline h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  font-weight: 800;
   margin-bottom: 10px;
 }
 
 .heroTagline p {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
 }
 
-/* Explore Button */
 .exploreBtn {
-  display: inline-block;
   padding: 12px 28px;
   border-radius: 25px;
   border: none;
@@ -80,6 +74,106 @@
 
 .exploreBtn:hover {
   background-color: #2563EB;
+}
+
+/* Auth Card */
+.authCard {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  width: 360px;
+  padding: 30px;
+  border-radius: 15px;
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  z-index: 3;
+}
+
+.authCard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.inputBox {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Phone + Country Code */
+.phoneInputWrapper {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.countryCodeSelect {
+  padding: 0 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  width: 90px;
+  height: 42px;
+  line-height: 42px;
+  background-color: #fff;
+  color: #111827;
+  
+  display: flex;
+  align-items: center;
+}
+
+.inputBox[type="tel"] {
+  flex: 1;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Primary Buttons */
+.primaryBtn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #3B82F6;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.3s ease;
+}
+
+.primaryBtn:hover {
+  background-color: #2563EB;
+}
+
+.linkText {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  cursor: pointer;
+  color: #3B82F6;
+}
+
+.switchText {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+.switchText span {
+  color: #3B82F6;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 /* Pagination Dots */
@@ -104,4 +198,42 @@
 
 .activeDot {
   background-color: #3B82F6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .heroTagline {
+    max-width: 50%;
+  }
+  .heroTagline h1 {
+    font-size: 2.5rem;
+  }
+  .heroTagline p {
+    font-size: 1.1rem;
+  }
+  .authCard {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTagline {
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80%;
+    text-align: center;
+  }
+  .heroTagline h1 {
+    font-size: 2rem;
+  }
+  .heroTagline p {
+    font-size: 1rem;
+  }
+  .authCard {
+    width: 90%;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+  }
 }
