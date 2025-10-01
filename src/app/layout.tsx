@@ -1,13 +1,20 @@
-export default function LandingLayout({
+import "./global.css"
+import type { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Travio",
+  description: "Discover amazing places with Travio",
+};
+
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0,fontFamily: "sans-serif", background: "#000" }}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
